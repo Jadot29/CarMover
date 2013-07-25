@@ -24,5 +24,5 @@ public class PlateauTest{
         assertThat(marsRover.topLeftY, is(5));
         assertThat(marsRover.topRightX, is(5));
         assertThat(marsRover.topRightY, is(5));
-    }
+}
 }

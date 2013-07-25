@@ -21,7 +21,7 @@ public class Program {
         Program program = new Program();
         ArrayList<Rover> rovers = program.readFromFile();
         for (Rover rover : rovers) {
-            System.out.println(rover.getX() + " " + rover.getY() + " " + rover.getOrientation());
+            System.out.println(rover.getX() + " " + rover.getY() + " " + rover.getCharOrient());
         }
     }
 

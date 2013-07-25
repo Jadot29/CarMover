@@ -1,5 +1,7 @@
 package com.example.MarsRover;
 
+import com.example.MarsRover.MarsRover.Orient;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Thoughtworker
@@ -16,4 +18,6 @@ public class Plateau {
         topLeftX = 0 ; topLeftY = topRightY;
         bottomLeftX = 0; bottomLeftY = 0 ;
     }
+
 }
+
