@@ -1,6 +1,6 @@
 package com.example.MarsRover;
 
-import com.example.MarsRover.MarsRover.Orient;
+import java.util.HashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,11 +12,10 @@ import com.example.MarsRover.MarsRover.Orient;
 public class Rover {
     private int x, y;
     private char charOrient;
-    Orient orient;
+    Mover orient;
 
     public Rover() {
-        orient = Orient.North;
-        translateOrientation();
+        charOrient = 'N';
         x = 1;
         y = 2;
     }
@@ -39,113 +38,38 @@ public class Rover {
         return y;
     }
 
-    public void translateOrientation() {
-        switch (orient) {
-            case North:
-                charOrient = 'N';
-                break;
-            case South:
-                charOrient = 'S';
-                break;
-            case West:
-                charOrient = 'W';
-                break;
-            case East:
-                charOrient = 'E';
-                break;
-            default:
-                break;
-        }
+    public void updateRover(Rover rover) {
+        charOrient = rover.getCharOrient();
+        x = rover.getX();
+        y = rover.getY();
     }
 
     public void takeMoves(char[] movesArray) {
         for (char move : movesArray) {
-            switch (charOrient) {
-                case 'N': FacingNorth(move);
-                break;
-                case 'S': {
-                    FacingSouth(move);
-                    break;
-                }
-                case 'W': {
-                    FacingWest(move);
-                    break;
-                }
-                case 'E': {
-                    FacingEast(move);
-                    break;
-                }
-
-            }
-
-        }
-
-    }
-
-    private void FacingEast(char move) {
-        switch (move) {
-            case 'M':
-                x += 1;
-                break;
-            case 'L':
-                charOrient = 'N';
-                break;
-            case 'R':
-                charOrient = 'S';
-                break;
-            default:
-                break;
+            updateRover(movePosition(move,this.getX(),this.getY(),this.getCharOrient()));
         }
     }
 
-    private void FacingWest(char move) {
-        switch (move) {
-            case 'M':
-                x -= 1;
-                break;
-            case 'L':
-                charOrient = 'S';
-                break;
-            case 'R':
-                charOrient = 'N';
-                break;
-            default:
-                break;
-        }
+    private Rover movePosition(char move,int x, int y , char charOrient) {
+        HashMap<Character, Rover> position = new HashMap<Character, Rover>();
+        position.put('N', new FacingNorth().move(new Rover(x,y,charOrient), move));
+        position.put('W', new FacingWest().move(new Rover(x,y,charOrient), move));
+        position.put('E', new FacingEast().move(new Rover(x,y,charOrient), move));
+        position.put('S', new FacingSouth().move(new Rover(x,y,charOrient), move));
+        return position.get(charOrient);
     }
 
-    private void FacingSouth(char move) {
-        switch (move) {
-            case 'M':
-                y -= 1;
-                break;
-            case 'L':
-                charOrient = 'E';
-                break;
-            case 'R':
-                charOrient = 'W';
-                break;
-            default:
-                break;
-        }
+    public void setY(int y) {
+        this.y = y;
+        this.y = y;
     }
 
-    private void FacingNorth(char move) {
-        case 'N': {
-            switch (move) {
-                case 'M':
-                    y += 1;
-                    break;
-                case 'L':
-                    charOrient = 'W';
-                    break;
-                case 'R':
-                    charOrient = 'E';
-                    break;
-                default:
-                    break;
-            }
-            return;
-        }
+    public void setCharOrient(char charOrient) {
+        this.charOrient = charOrient;
+    }
+
+    public void setX(int x) {
+
+        this.x = x;
     }
 }

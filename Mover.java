@@ -1,13 +1,15 @@
-package com.example.MarsRover.MarsRover;
+package com.example.MarsRover;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Thoughtworker
  * Date: 7/25/13
- * Time: 9:37 AM
+ * Time: 3:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public enum Orient {
-     North, South , East, West
-}
+public interface Mover {
 
+    public Rover move(Rover rover,char move);
+
+    ;
+}

@@ -1,7 +1,5 @@
 package com.example.MarsRover;
 
-import com.example.MarsRover.MarsRover.Orient;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Thoughtworker
