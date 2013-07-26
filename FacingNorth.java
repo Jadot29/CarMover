@@ -1,7 +1,5 @@
 package com.example.MarsRover;
 
-import java.util.HashMap;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Thoughtworker
@@ -9,7 +7,7 @@ import java.util.HashMap;
  * Time: 2:33 PM
  * To change this template use File | Settings | File Templates.
  */
-public class FacingNorth  {
+public class FacingNorth  implements Mover{
 //    HashMap<Character,Rover> adjustPosition = new HashMap<Character,Rover>();
 //    Rover rover = new Rover();
 //                           adjustPosition.put('M', new MoveUp().moveUp(rover));
@@ -20,15 +18,26 @@ public class FacingNorth  {
                 rover = new MoveUp().moveUp(rover);
                 break;
             case 'L':
-                rover = new AdjustPositionLeft().turn(rover);
+                rover = new TurnLeft().turn(rover);
                 break;
             case 'R':
-                rover = new TurnLeft().turn(rover);
+                rover = new TurnRight().turn(rover);
                 break;
             default:
                 break;
         }
         return rover;
+    }
+
+    public Rover turnLeft(Rover rover) {
+        rover.setCharOrient('W');
+        return rover;
+    }
+
+    public Rover turnRight(Rover rover) {
+        rover.setCharOrient('E');
+        return rover;
+
     }
 
 }
