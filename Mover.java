@@ -9,8 +9,8 @@ package com.example.MarsRover;
  */
 public interface Mover {
 
-    public Rover move(Rover rover,char move);
-    TurnLeft turnLeft = new TurnLeft();
-    TurnRight turnRight = new TurnRight();
+    public Rover moveForward(Rover rover) ;
+    public Rover turnLeft(Rover rover);
+    public Rover turnRight(Rover rover);
 
 }

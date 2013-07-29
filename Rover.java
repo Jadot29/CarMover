@@ -46,18 +46,37 @@ public class Rover {
 
     public void takeMoves(char[] movesArray) {
         for (char move : movesArray) {
-            updateRover(movePosition(move,this.getX(),this.getY(),this.getCharOrient()));
+            movePosition(move);
         }
     }
 
-    private Rover movePosition(char move,int x, int y , char charOrient) {
-        HashMap<Character, Rover> position = new HashMap<Character, Rover>();
-        position.put('N', new FacingNorth().move(new Rover(x,y,charOrient), move));
-        position.put('W', new FacingWest().move(new Rover(x,y,charOrient), move));
-        position.put('E', new FacingEast().move(new Rover(x,y,charOrient), move));
-        position.put('S', new FacingSouth().move(new Rover(x,y,charOrient), move));
-        return position.get(charOrient);
+    private void movePosition(char move) {
+        HashMap<Character, Mover> facingMap = setUpMoverHashMap();
+        Mover currentFacing = facingMap.get(charOrient);
+        if(move == 'L'){
+            currentFacing.turnLeft(this);
+
+        }
+        else if ( move == 'R')
+        {
+            currentFacing.turnRight(this);
+
+        }
+        else {
+            currentFacing.moveForward(this);
+        }
+
     }
+
+    private HashMap<Character, Mover> setUpMoverHashMap() {
+        HashMap<Character, Mover> facingMap = new HashMap<Character, Mover>();
+        facingMap.put('N', new FacingNorth());
+        facingMap.put('W', new FacingWest());
+        facingMap.put('E', new FacingEast());
+        facingMap.put('S', new FacingSouth());
+        return facingMap;
+    }
+
 
     public void setY(int y) {
         this.y = y;

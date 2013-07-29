@@ -1,5 +1,7 @@
 package com.example.MarsRover;
 
+import junit.extensions.TestSetup;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -14,7 +16,14 @@ import static org.junit.Assert.assertTrue;
  * To change this template use File | Settings | File Templates.
  */
 public class RoverTest {
-    Rover rover  = new Rover();
+
+    Rover rover;
+
+    @Before
+    public void setup(){
+        rover  = new Rover(1,2,'N');
+    }
+
     @Test
     public void shouldSetRoverInitialOrientation(){
         assertEquals(rover.getCharOrient(), 'N');

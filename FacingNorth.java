@@ -8,24 +8,9 @@ package com.example.MarsRover;
  * To change this template use File | Settings | File Templates.
  */
 public class FacingNorth  implements Mover{
-//    HashMap<Character,Rover> adjustPosition = new HashMap<Character,Rover>();
-//    Rover rover = new Rover();
-//                           adjustPosition.put('M', new MoveUp().moveUp(rover));
 
-    public Rover  move(Rover rover, char move) {
-        switch (move) {
-            case 'M':
-                rover = new MoveUp().moveUp(rover);
-                break;
-            case 'L':
-                rover = new TurnLeft().turn(rover);
-                break;
-            case 'R':
-                rover = new TurnRight().turn(rover);
-                break;
-            default:
-                break;
-        }
+    public Rover moveForward(Rover rover){
+        rover.setY(rover.getY()+1);
         return rover;
     }
 

@@ -9,21 +9,20 @@ package com.example.MarsRover;
  */
 public class FacingEast implements Mover {
 
-
-    public Rover move(Rover rover, char move) {
-        switch (move) {
-            case 'M':
-                rover.setX(rover.getX() + 1);
-                break;
-            case 'L':
-                rover.setCharOrient('N');
-                break;
-            case 'R':
-                rover.setCharOrient('S');
-                break;
-            default:
-                break;
-        }
+    public Rover turnRight(Rover rover) {
+        rover.setCharOrient('S');
         return rover;
     }
+
+    public Rover turnLeft(Rover rover) {
+        rover.setCharOrient('N');
+        return rover;
+    }
+
+    public Rover moveForward(Rover rover) {
+        rover.setX(rover.getX() + 1);
+        return rover;
+    }
+
+
 }
