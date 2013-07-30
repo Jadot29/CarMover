@@ -19,43 +19,70 @@ public class Program {
 
     public static void main(String[] args) throws IOException {
         Program program = new Program();
-        ArrayList<Rover> rovers = program.readFromFile();
-        for (Rover rover : rovers) {
-            System.out.println(rover.getX() + " " + rover.getY() + " " + rover.getCharOrient());
-        }
+        program.readFromFile();
     }
 
-    public ArrayList<Rover> readFromFile() throws IOException{
-        Plateau plateau = null;
+    public void readFromFile() throws IOException {
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("/Users/Thoughtworker/Documents/MarsRover.txt"));
-            boolean done = false;
-            String nextLine = reader.readLine();
-            char[] nextLineArray = nextLine.toCharArray();
-            plateau = new Plateau(nextLineArray[1], nextLineArray[3]);
-            Rover currentRover = new Rover();
-            while (!done) {
-                nextLine = reader.readLine();
-                nextLineArray = nextLine.toCharArray();
-                if (nextLineArray.length != 0) {
-                    if (Character.isDigit(nextLineArray[0])) {
-                        currentRover = new Rover(Character.getNumericValue(nextLineArray[0]),
-                                Character.getNumericValue(nextLineArray[2]), nextLineArray[4]);
-                    } else if (Character.isLetter(nextLineArray[0])) {
-                        currentRover.takeMoves(nextLineArray);
-                        rovers.add(currentRover);
-                    }
-                } else {
-                    done = true;
+            reader = openFile("/Users/Thoughtworker/Documents/MarsRover.txt");
+            char[] nextLineArray = readLineConvertToCharArray(reader);
+            Rover currentRover = new Rover(1, 2, new FacingNorth());
+            while (!isEmpty(nextLineArray)) {
+                if (Character.isDigit(nextLineArray[0])) {
+                    currentRover = initializeRoverPosition(nextLineArray);
                 }
-
+                else {
+                    currentRover.takeMoves(nextLineArray);
+                    currentRover.printRoverPosition();
+                }
+                nextLineArray = readLineConvertToCharArray(reader);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File Not Found");
         }
 
         reader.close();
-        return rovers;
+    }
+
+    private Rover initializeRoverPosition(char[] nextLineArray) {
+        Rover currentRover;
+        currentRover = new Rover(Character.getNumericValue(nextLineArray[0]),
+                Character.getNumericValue(nextLineArray[2]), charToFacing(nextLineArray[4]));
+        return currentRover;
+    }
+
+    private char[] readLineConvertToCharArray(BufferedReader reader) throws IOException {
+        String nextLine;
+        char[] nextLineArray;
+        nextLine = reader.readLine();
+        nextLineArray = nextLine.toCharArray();
+        return nextLineArray;
+    }
+
+    public Facing  charToFacing(char charFacing){
+       if (charFacing == 'N')
+           return new FacingNorth();
+       else if (charFacing == 'S'){
+           return new FacingSouth();
+       }
+       else if (charFacing == 'E'){
+           return new FacingEast();
+       }
+        else
+           return new FacingWest();
+    }
+
+    public boolean isEmpty(char[] array) {
+        if (array.length == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private BufferedReader openFile(String filename) throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
+        return reader;
     }
 }

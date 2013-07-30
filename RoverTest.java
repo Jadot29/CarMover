@@ -21,12 +21,12 @@ public class RoverTest {
 
     @Before
     public void setup(){
-        rover  = new Rover(1,2,'N');
+        rover  = new Rover(1,2, new FacingNorth());
     }
 
     @Test
     public void shouldSetRoverInitialOrientation(){
-        assertEquals(rover.getCharOrient(), 'N');
+        assertEquals(rover.getCurrentFacing().name(), new FacingNorth().name());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class RoverTest {
         String move  = "LM";
         rover.takeMoves(move.toCharArray());
         assertEquals(rover.getX(), 0);
-        assertEquals(rover.getCharOrient(),'W');
+        assertEquals(rover.getCurrentFacing().name(),new FacingWest().name());
     }
 
 }

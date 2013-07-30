@@ -11,12 +11,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Thoughtworker
- * Date: 7/16/13
- * Time: 4:58 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created with IntelliJ IDEA.
+* User: Thoughtworker
+* Date: 7/16/13
+* Time: 4:58 PM
+* To change this template use File | Settings | File Templates.
+*/
 public class ProgramTest {
     @Test
     public void shouldTakeInputFromTextFile() throws IOException {

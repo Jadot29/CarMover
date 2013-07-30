@@ -1,6 +1,5 @@
 package com.example.MarsRover;
 
-import java.util.HashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,23 +10,12 @@ import java.util.HashMap;
  */
 public class Rover {
     private int x, y;
-    private char charOrient;
-    Mover orient;
+    private Facing currentFacing;
 
-    public Rover() {
-        charOrient = 'N';
-        x = 1;
-        y = 2;
-    }
-
-    public Rover(int x, int y, char charOrient) {
+    public Rover(int x, int y, Facing facing) {
         this.x = x;
         this.y = y;
-        this.charOrient = charOrient;
-    }
-
-    public char getCharOrient() {
-        return charOrient;
+        this.currentFacing = facing;
     }
 
     public int getX() {
@@ -38,12 +26,6 @@ public class Rover {
         return y;
     }
 
-    public void updateRover(Rover rover) {
-        charOrient = rover.getCharOrient();
-        x = rover.getX();
-        y = rover.getY();
-    }
-
     public void takeMoves(char[] movesArray) {
         for (char move : movesArray) {
             movePosition(move);
@@ -51,16 +33,12 @@ public class Rover {
     }
 
     private void movePosition(char move) {
-        HashMap<Character, Mover> facingMap = setUpMoverHashMap();
-        Mover currentFacing = facingMap.get(charOrient);
         if(move == 'L'){
-            currentFacing.turnLeft(this);
-
+            currentFacing = currentFacing.turnLeft();
         }
         else if ( move == 'R')
         {
-            currentFacing.turnRight(this);
-
+            currentFacing = currentFacing.turnRight();
         }
         else {
             currentFacing.moveForward(this);
@@ -68,27 +46,20 @@ public class Rover {
 
     }
 
-    private HashMap<Character, Mover> setUpMoverHashMap() {
-        HashMap<Character, Mover> facingMap = new HashMap<Character, Mover>();
-        facingMap.put('N', new FacingNorth());
-        facingMap.put('W', new FacingWest());
-        facingMap.put('E', new FacingEast());
-        facingMap.put('S', new FacingSouth());
-        return facingMap;
-    }
-
 
     public void setY(int y) {
         this.y = y;
-        this.y = y;
-    }
-
-    public void setCharOrient(char charOrient) {
-        this.charOrient = charOrient;
     }
 
     public void setX(int x) {
-
         this.x = x;
+    }
+
+    public void printRoverPosition(){
+        System.out.println(x + " " + y + " " + currentFacing.name());
+    }
+
+    public Facing getCurrentFacing() {
+        return currentFacing;
     }
 }
